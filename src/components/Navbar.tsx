@@ -17,8 +17,8 @@ export default function Navbar() {
     {console.log(user)}
       <Modal ref={modalRef} title={action}>
         <Form>
-          <Input label="username" type="text" name="username" />
-          <Input label="password" type="password" name="password" />
+          <Input label="Username" type="text" name="username" />
+          <Input label="Password" type="password" name="password" />
         </Form>
       </Modal>
       <nav className="navbar">
