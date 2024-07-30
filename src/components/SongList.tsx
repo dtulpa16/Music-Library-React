@@ -3,13 +3,17 @@ import { fetchSongs } from "../util/http";
 import SongCard from "./SongCard";
 
 export default function SongList() {
-  const { data, isLoading } = useQuery({
+  const { data, isPending, isError, error } = useQuery({
     queryKey: ["songs"],
     queryFn: fetchSongs,
   });
 
-  if(isLoading){
+  if(isPending){
     return <h1>Loading...</h1>
+  }
+
+  if(isError){
+    return <h1>{error.message}</h1>
   }
 
   return (
