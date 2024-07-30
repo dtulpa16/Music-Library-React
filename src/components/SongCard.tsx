@@ -1,4 +1,4 @@
-import { Song } from "../App"
+import { Song } from "../types"
 
 type SongCardProps = {
     song: Song

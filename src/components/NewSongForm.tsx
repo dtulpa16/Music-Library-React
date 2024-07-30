@@ -1,6 +1,6 @@
 import { useContext, useRef, useState } from "react";
 import Form from "./Form";
-import { Song } from "../App";
+import { Song } from "../types";
 import Input from "./Input";
 import Button from "./Button";
 import Modal from "./Modal";
@@ -21,7 +21,8 @@ export default function AddNewSongForm() {
     title: "",
     artist: "",
     album: "",
-    year: undefined,
+    releaseDate: undefined,
+    genre:""
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -63,8 +64,14 @@ export default function AddNewSongForm() {
         />
         <Input
           label={"Year"}
-          name={"year"}
+          name={"releaseDate"}
           type="date"
+          onChange={handleChange}
+        />
+        <Input
+          label={"Genre"}
+          name={"genre"}
+          type="string"
           onChange={handleChange}
         />
         <Button type="submit">Add Song</Button>
