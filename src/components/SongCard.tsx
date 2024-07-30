@@ -1,8 +1,9 @@
 import { Song } from "../util/types";
-import DeleteIcon from "../UI/DeleteIcon";
-import EditIcon from "../UI/EditIcon";
+import DeleteIcon from "../UI/icons/DeleteIcon";
+import EditIcon from "../UI/icons/EditIcon";
 import "../styles/SongList.css"
-import StarIcon from "../UI/StarIcon";
+import StarIcon from "../UI/icons/StarIcon";
+
 type SongCardProps = {
   song: Song;
 };
@@ -19,7 +20,7 @@ export default function SongCard({ song }: SongCardProps) {
       </div>
       <div className="song-actions">
         <i className="star-icon">
-          <StarIcon width="24px" height="24px" isFavorited={false} />
+          <StarIcon width="24px" height="24px" isFavorited={song.isFavorited ?? false} />
         </i>
         <i className="edit-icon">
           <EditIcon width="24px" height="24px" />

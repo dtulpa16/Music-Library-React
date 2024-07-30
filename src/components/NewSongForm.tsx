@@ -1,12 +1,16 @@
 import { useContext, useRef, useState } from "react";
-import Form from "./Form";
+import Form from "../UI/elements/Form";
 import { Song } from "../util/types";
-import Input from "./Input";
-import Button from "./Button";
-import Modal from "./Modal";
+import Input from "../UI/elements/Input";
+import Button from "../UI/elements/Button";
+import Modal from "../UI/elements/Modal";
 import { PlaylistContext } from "../store/PlaylistProvider";
 
 export default function AddNewSongForm() {
+  const [isDisabled, setIsDisabled] = useState<boolean>(true);
+
+  const formRef = useRef<HTMLFormElement>(null)
+
   // Custom Modal ref - handles opening and closing through a forwarded ref
   const modalRef = useRef<{ open: () => void; close: () => void }>(null);
 
@@ -21,8 +25,8 @@ export default function AddNewSongForm() {
     title: "",
     artist: "",
     album: "",
-    releaseDate: undefined,
-    genre:""
+    releaseDate: "",
+    genre: "",
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -30,12 +34,22 @@ export default function AddNewSongForm() {
       ...songData,
       [e.target.name]: e.target.value,
     });
+    if (
+      songData.title.length >= 3 &&
+      songData.artist.length >= 3 &&
+      songData.album.length >= 3 &&
+      songData.releaseDate &&
+      songData.genre.length >= 3
+    ) {
+      setIsDisabled(false)
+    }
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLInputElement>) => {
     e.preventDefault();
-    dispatch({type:"ADD_SONG", payload:songData})
+    dispatch({ type: "ADD_SONG", payload: songData });
     modalRef.current?.open();
+    formRef.current?.reset()
   };
 
   return (
@@ -43,7 +57,7 @@ export default function AddNewSongForm() {
       <Modal ref={modalRef} title="Success!">
         <p>Song Added To Playlist.</p>
       </Modal>
-      <Form onSubmit={handleSubmit}>
+      <Form ref={formRef} onSubmit={handleSubmit}>
         <Input
           label={"Title"}
           name={"title"}
@@ -74,7 +88,7 @@ export default function AddNewSongForm() {
           type="string"
           onChange={handleChange}
         />
-        <Button type="submit">Add Song</Button>
+        <Button type="submit" disabled={isDisabled}>Add Song</Button>
       </Form>
     </>
   );
