@@ -1,6 +1,6 @@
 import { useContext, useRef, useState } from "react";
 import Form from "./Form";
-import { Song } from "../types";
+import { Song } from "../util/types";
 import Input from "./Input";
 import Button from "./Button";
 import Modal from "./Modal";

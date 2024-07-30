@@ -1,0 +1,52 @@
+.song-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #fff;
+  padding: 15px;
+  margin: 10px 0;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s;
+}
+
+.song-card:hover {
+  transform: translateY(-3px);
+}
+
+.song-details {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.song-details p {
+  margin: 2px 0;
+  color: #333;
+}
+
+.song-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.song-actions i {
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.song-actions i:hover {
+  transform: scale(1.1);
+}
+
+.song-actions i.edit-icon {
+  color: #f0c419;
+}
+
+.song-actions i.delete-icon {
+  color: #e74c3c;
+}
+.song-actions i.star-icon {
+  color: #56e73c;
+}

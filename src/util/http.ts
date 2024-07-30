@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Song } from "../types";
+import { Song } from "./types";
 
 export const fetchSongs = async (): Promise<Song[]> => {
   const response = await axios.get("https://localhost:7010/api/Songs")
