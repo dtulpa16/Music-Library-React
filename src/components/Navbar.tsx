@@ -8,10 +8,13 @@ import { useAuth } from "../util/hooks/useAuth";
 export default function Navbar() {
   const { user, logout } = useAuth();
   const [action, setAction] = useState<string>("");
+
   // Custom Modal ref - handles opening and closing through a forwarded ref
   const modalRef = useRef<{ open: () => void; close: () => void }>(null);
+
   return (
     <>
+    {console.log(user)}
       <Modal ref={modalRef} title={action}>
         <Form>
           <Input label="username" type="text" name="username" />
