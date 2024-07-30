@@ -6,6 +6,6 @@ type SongCardProps = {
 
 export default function SongCard({song}: SongCardProps) {
   return (
-    <div>SongCard</div>
+    <div>{song.title}</div>
   )
 }

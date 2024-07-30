@@ -103,6 +103,6 @@ input:focus {
 .form-group {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: .6rem;
   margin-bottom: 15px;
 }
