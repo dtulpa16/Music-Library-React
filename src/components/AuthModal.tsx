@@ -14,7 +14,7 @@ const AuthModal: React.FC<AuthModalProps> = ({ action, setAction }) => {
   const { login } = useAuth();
   const [credentials, setCredentials] = useState({ username: "", password: "" });
   const modalRef = useRef<{ open: () => void; close: () => void }>(null);
-
+  const formRef = useRef<HTMLFormElement>(null)
   if(action){
     modalRef.current?.open();
   }
@@ -30,12 +30,13 @@ const AuthModal: React.FC<AuthModalProps> = ({ action, setAction }) => {
     e.preventDefault();
     await login(credentials.username, credentials.password);
     setAction("")
+    formRef.current?.reset()
     modalRef.current?.close();
   };
 
   return (
     <Modal ref={modalRef} title={action}>
-      <Form onSubmit={handleSubmit}>
+      <Form ref={formRef} onSubmit={handleSubmit}>
         <Input
           label="Username"
           type="text"
