@@ -6,10 +6,11 @@ import AuthModal from "./AuthModal";
 export default function Navbar() {
   const { user, logout } = useAuth();
   const [action, setAction] = useState<string>("");
+  const [showToggle, setShowToggle] = useState<boolean>(false);
 
   return (
     <>
-      <AuthModal action={action} setAction={setAction}/>
+      <AuthModal action={action} setAction={setAction} onToggle={showToggle}/>
       <nav className="navbar">
         <div className="navbar-brand">MusicCity</div>
         <div className="navbar-actions">
@@ -24,6 +25,7 @@ export default function Navbar() {
             <>
               <button
                 onClick={() => {
+                  setShowToggle(!showToggle)
                   setAction("Login");
                 }}
               >
@@ -31,6 +33,7 @@ export default function Navbar() {
               </button>
               <button
                 onClick={() => {
+                  setShowToggle(!showToggle)
                   setAction("Register");
                 }}
               >
