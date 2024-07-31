@@ -19,14 +19,23 @@ type AuthContextType = {
 export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [user, setUser] = useState<User | null>(null);
 
+  // useEffect(() => {
+  //   if (user && user.id) {
+  //     localStorage.setItem("userId", user.id);
+  //   }
+  // }, [user]);
   useEffect(() => {
-    if (user && user.id) {
-      localStorage.setItem("userId", user.id);
-    } else {
-      localStorage.removeItem("userId");
+    const userId = localStorage.getItem("userId");
+    const username = localStorage.getItem("username");
+    if (userId && username) {
+      try {
+        setUser({ id: userId, username });
+      } catch (error) {
+        localStorage.removeItem("userId");
+        localStorage.removeItem("username");
+      }
     }
-  }, [user]);
-
+  }, []);
   const login = async (username: string, password: string) => {
     try {
       const response = await axios.post("https://localhost:7010/api/Users", {
@@ -34,6 +43,8 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         password,
       });
       setUser(response.data);
+      localStorage.setItem("userId", response.data.id);
+      localStorage.setItem("username", response.data.username);
     } catch (error) {
       console.error("Login failed:", error);
       throw error;
@@ -41,6 +52,8 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   };
 
   const logout = () => {
+    localStorage.removeItem("userId")
+    localStorage.removeItem("username")
     setUser(null);
   };
 
