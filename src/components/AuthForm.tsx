@@ -1,20 +1,26 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Form from "../UI/elements/Form";
 import { useAuth } from "../util/hooks/useAuth";
 import Button from "../UI/elements/Button";
 import Input from "../UI/elements/Input";
 interface AuthFormProps {
-    action: string;
+  action: string;
   setAction: React.Dispatch<React.SetStateAction<string>>;
-  modalRef:React.RefObject<{
+  modalRef: React.RefObject<{
     open: () => void;
     close: () => void;
-}>
+  }>;
+  onToggle: boolean;
 }
 
-export default function AuthForm({setAction, action, modalRef}:AuthFormProps) {
+export default function AuthForm({
+  setAction,
+  action,
+  modalRef,
+  onToggle
+}: AuthFormProps) {
   const { login } = useAuth();
-  
+
   const [credentials, setCredentials] = useState({
     username: "",
     password: "",
@@ -36,7 +42,9 @@ export default function AuthForm({setAction, action, modalRef}:AuthFormProps) {
     formRef.current?.reset();
     modalRef.current?.close();
   };
-
+  useEffect(() => {
+    formRef.current?.reset();
+  }, [onToggle]);
   return (
     <Form ref={formRef} onSubmit={handleSubmit}>
       <Input

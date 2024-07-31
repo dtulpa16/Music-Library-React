@@ -25,7 +25,7 @@ const AuthModal: React.FC<AuthModalProps> = ({
 
   return (
     <Modal ref={modalRef} title={action}>
-      <AuthForm modalRef={modalRef} action={action} setAction={setAction} />
+      <AuthForm modalRef={modalRef} action={action} setAction={setAction} onToggle={onToggle}/>
     </Modal>
   );
 };
