@@ -19,11 +19,6 @@ type AuthContextType = {
 export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [user, setUser] = useState<User | null>(null);
 
-  // useEffect(() => {
-  //   if (user && user.id) {
-  //     localStorage.setItem("userId", user.id);
-  //   }
-  // }, [user]);
   useEffect(() => {
     const userId = localStorage.getItem("userId");
     const username = localStorage.getItem("username");

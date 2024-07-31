@@ -1,10 +1,12 @@
 import { useQuery } from "@tanstack/react-query";
 import { fetchSongs } from "../util/http";
 import SongCard from "./SongCard";
+import { useAuth } from "../util/hooks/useAuth";
 
 export default function SongList() {
+  const { user } = useAuth();
   const { data, isPending, isError, error } = useQuery({
-    queryKey: ["songs"],
+    queryKey: ['songs', user?.id],
     queryFn: fetchSongs,
   });
 
