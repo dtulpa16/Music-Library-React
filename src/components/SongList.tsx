@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { fetchSongs } from "../util/http";
-import SongCard from "./SongCard";
+import SongCard from "./SongCard/SongCard";
 import { useAuth } from "../util/hooks/useAuth";
 import { useState } from "react";
 

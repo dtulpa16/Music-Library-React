@@ -1,14 +1,18 @@
-import { Song } from "../util/types";
-import DeleteIcon from "../UI/icons/DeleteIcon";
-import EditIcon from "../UI/icons/EditIcon";
-import "../styles/SongList.css"
-import StarIcon from "../UI/icons/StarIcon";
+import { Song } from "../../util/types";
+import "../../styles/SongList.css"
+import FavoriteSongButton from "./FavoriteSongButton";
+import DeleteSongButton from "./DeleteSongButton";
+import EditSongButton from "./EditSongButton";
+
 
 type SongCardProps = {
   song: Song;
 };
 
 export default function SongCard({ song }: SongCardProps) {
+
+  
+
   return (
     <div className="song-card">
       <div className="song-details">
@@ -20,13 +24,13 @@ export default function SongCard({ song }: SongCardProps) {
       </div>
       <div className="song-actions">
         <i className="star-icon">
-          <StarIcon width="24px" height="24px" isFavorited={song.isFavorited ?? false} />
+          <FavoriteSongButton {...song}/>
         </i>
         <i className="edit-icon">
-          <EditIcon width="24px" height="24px" />
+          <EditSongButton {...song}/>
         </i>
         <i className="delete-icon">
-          <DeleteIcon width="24px" height="24px" />
+          <DeleteSongButton {...song}/>
         </i>
       </div>
     </div>
