@@ -10,7 +10,7 @@ export const fetchSongs = async (): Promise<Song[]> => {
   const headers = userId ? { "User-Id": userId } : undefined;
 
   const response = await axios.get(
-    `${import.meta.env.VITE_BASE_URL}/api/Songs`,
+    `${import.meta.env.VITE_BASE_URL || process.env.VITE_BASE_URL}/api/Songs`,
     {
       headers: headers,
     }
@@ -28,7 +28,7 @@ export const fetchSongs = async (): Promise<Song[]> => {
 export const addSong = async (data: Song): Promise<Song | null> => {
   try {
     const response = await axios.post<Song>(
-      `${import.meta.env.VITE_BASE_URL}/api/Songs`,
+      `${import.meta.env.VITE_BASE_URL || process.env.VITE_BASE_URL}/api/Songs`,
       data
     );
 
@@ -45,7 +45,7 @@ export const handleFavorite = async (songId: number): Promise<Song | null> => {
 
   const headers = userId ? { "User-Id": userId } : undefined;
   const response = await axios.post(
-    `${import.meta.env.VITE_BASE_URL}/api/playlists/addSong`,
+    `${import.meta.env.VITE_BASE_URL || process.env.VITE_BASE_URL}/api/playlists/addSong`,
     { songId, userId },
     { headers: headers }
   );
