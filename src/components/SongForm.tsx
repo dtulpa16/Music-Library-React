@@ -10,6 +10,7 @@ import { useAuth } from "../util/hooks/useAuth";
 
 export default function SongForm({ setShowForm, modalRef }: SongFormProps) {
   const [isDisabled, setIsDisabled] = useState<boolean>(true);
+  const formRef = useRef<HTMLFormElement>(null);
   const { user } = useAuth();
   const mutation = useMutation({
     mutationFn: addSong,
@@ -17,6 +18,8 @@ export default function SongForm({ setShowForm, modalRef }: SongFormProps) {
       queryClient.invalidateQueries({
         queryKey: ["songs", user?.id],
       });
+      modalRef.current?.open();
+      formRef.current?.reset();
     },
   });
 
@@ -29,7 +32,7 @@ export default function SongForm({ setShowForm, modalRef }: SongFormProps) {
 
   // const { dispatch } = context;
 
-  const formRef = useRef<HTMLFormElement>(null);
+ 
 
   const [songData, setSongData] = useState<Song>({
     title: "",
@@ -59,8 +62,6 @@ export default function SongForm({ setShowForm, modalRef }: SongFormProps) {
     e.preventDefault();
     mutation.mutate(songData);
     // dispatch({ type: "ADD_SONG", payload: songData });
-    modalRef.current?.open();
-    formRef.current?.reset();
   };
 
   return (
