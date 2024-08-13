@@ -3,10 +3,11 @@ import { fetchSongs } from "../util/http";
 import SongCard from "./SongCard/SongCard";
 import { useAuth } from "../util/hooks/useAuth";
 import { useState } from "react";
-
+import "../styles/SongList.css"
 export default function SongList() {
   const { user } = useAuth();
   const [currentPage, setCurrentPage] = useState(1);
+  const [animationClass, setAnimationClass] = useState<string>('');
   const itemsPerPage = 4;
 
   const { data, isPending, isError, error } = useQuery({
@@ -18,13 +19,21 @@ export default function SongList() {
 
   const handleNextPage = () => {
     if (currentPage < totalPages) {
-      setCurrentPage(currentPage + 1);
+      setAnimationClass('slide-out-left');
+      setTimeout(() => {
+        setCurrentPage((prevPage) => prevPage + 1);
+        setAnimationClass('slide-in-right');
+      }, 100); // Duration matches the animation time
     }
   };
 
   const handlePrevPage = () => {
     if (currentPage > 1) {
-      setCurrentPage(currentPage - 1);
+      setAnimationClass('slide-out-right');
+      setTimeout(() => {
+        setCurrentPage((prevPage) => prevPage - 1);
+        setAnimationClass('slide-in-left');
+      }, 100); // Duration matches the animation time
     }
   };
 
@@ -42,10 +51,10 @@ export default function SongList() {
 
   return (
     <div>
-      <div>
-        {currentData?.map((el, i) => {
-          return <SongCard key={i} song={el} />;
-        })}
+      <div className={`song-container ${animationClass}`}>
+        {currentData?.map((el, i) => (
+          <SongCard key={i} song={el} />
+        ))}
       </div>
       <div className="pagination">
         <button onClick={handlePrevPage} disabled={currentPage === 1}>
