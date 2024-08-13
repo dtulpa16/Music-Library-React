@@ -34,7 +34,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   
   const login = async (username: string, password: string) => {
     try {
-      const response = await axios.post(`${import.meta.env.VITE_BASE_URL || process.env.VITE_BASE_URL}/api/Users`, {
+      const response = await axios.post(`${import.meta.env.VITE_API_BASE_URL || process.env.VITE_API_BASE_URL}/api/Users`, {
         username,
         password,
       });
