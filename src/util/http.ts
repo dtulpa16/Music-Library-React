@@ -9,9 +9,12 @@ export const fetchSongs = async (): Promise<Song[]> => {
 
   const headers = userId ? { "User-Id": userId } : undefined;
 
-  const response = await axios.get("https://localhost:7010/api/Songs", {
-    headers: headers,
-  });
+  const response = await axios.get(
+    `${process.env.REACT_APP_BASE_URL}/api/Songs`,
+    {
+      headers: headers,
+    }
+  );
 
   if (response.status !== 200) {
     const error = new Error("An error occurred while fetching songs");
@@ -25,7 +28,7 @@ export const fetchSongs = async (): Promise<Song[]> => {
 export const addSong = async (data: Song): Promise<Song | null> => {
   try {
     const response = await axios.post<Song>(
-      "https://localhost:7010/api/Songs",
+      `${process.env.REACT_APP_BASE_URL}/api/Songs`,
       data
     );
 
@@ -42,7 +45,9 @@ export const handleFavorite = async (songId: number): Promise<Song | null> => {
 
   const headers = userId ? { "User-Id": userId } : undefined;
   const response = await axios.post(
-    "https://localhost:7010/api/playlists/addSong", { songId, userId }, {headers: headers}
+    `${process.env.REACT_APP_BASE_URL}/api/playlists/addSong`,
+    { songId, userId },
+    { headers: headers }
   );
 
   if (response.status !== 200) {
