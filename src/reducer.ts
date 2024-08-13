@@ -1,4 +1,4 @@
-import { Song } from "./App";
+import { Song } from "./util/types";
 
 type SongAction =
   | { type: "ADD_SONG"; payload: Song }
@@ -17,7 +17,6 @@ const songReducer = (state: State, action: SongAction): State => {
   switch (action.type) {
     case "ADD_SONG":
       updatedSongs = [...state.songs, action.payload];
-      debugger
       return {
         songs: updatedSongs,
       };

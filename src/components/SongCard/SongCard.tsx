@@ -1,18 +1,14 @@
 import { Song } from "../../util/types";
-import "../../styles/SongList.css"
+import "../../styles/SongList.css";
 import FavoriteSongButton from "./FavoriteSongButton";
 import DeleteSongButton from "./DeleteSongButton";
 import EditSongButton from "./EditSongButton";
-
 
 type SongCardProps = {
   song: Song;
 };
 
 export default function SongCard({ song }: SongCardProps) {
-
-  
-
   return (
     <div className="song-card">
       <div className="song-details">
@@ -24,13 +20,13 @@ export default function SongCard({ song }: SongCardProps) {
       </div>
       <div className="song-actions">
         <i className="star-icon">
-          <FavoriteSongButton {...song}/>
+          <FavoriteSongButton {...song} />
         </i>
         <i className="edit-icon">
-          <EditSongButton {...song}/>
+          <EditSongButton />
         </i>
         <i className="delete-icon">
-          <DeleteSongButton {...song}/>
+          <DeleteSongButton />
         </i>
       </div>
     </div>

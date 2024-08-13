@@ -1,7 +1,6 @@
-import { Song } from "../../util/types";
 import DeleteIcon from "../../UI/icons/DeleteIcon";
 
-export default function DeleteSongButton({ ...song }: Song) {
+export default function DeleteSongButton() {
 //   const { user } = useAuth();
 
 //   const mutation = useMutation({
