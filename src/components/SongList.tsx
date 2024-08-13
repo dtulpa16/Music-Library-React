@@ -3,11 +3,13 @@ import { fetchSongs } from "../util/http";
 import SongCard from "./SongCard/SongCard";
 import { useAuth } from "../util/hooks/useAuth";
 import { useState } from "react";
-import "../styles/SongList.css"
+import "../styles/SongList.css";
+import Loader from "./Loader";
+
 export default function SongList() {
   const { user } = useAuth();
   const [currentPage, setCurrentPage] = useState(1);
-  const [animationClass, setAnimationClass] = useState<string>('');
+  const [animationClass, setAnimationClass] = useState<string>("");
   const itemsPerPage = 4;
 
   const { data, isPending, isError, error } = useQuery({
@@ -19,21 +21,21 @@ export default function SongList() {
 
   const handleNextPage = () => {
     if (currentPage < totalPages) {
-      setAnimationClass('slide-out-left');
+      setAnimationClass("slide-out-left");
       setTimeout(() => {
         setCurrentPage((prevPage) => prevPage + 1);
-        setAnimationClass('slide-in-right');
-      }, 100); // Duration matches the animation time
+        setAnimationClass("slide-in-right");
+      }, 100);
     }
   };
 
   const handlePrevPage = () => {
     if (currentPage > 1) {
-      setAnimationClass('slide-out-right');
+      setAnimationClass("slide-out-right");
       setTimeout(() => {
         setCurrentPage((prevPage) => prevPage - 1);
-        setAnimationClass('slide-in-left');
-      }, 100); // Duration matches the animation time
+        setAnimationClass("slide-in-left");
+      }, 100);
     }
   };
 
@@ -42,7 +44,7 @@ export default function SongList() {
   const currentData = data?.slice(startIndex, endIndex);
 
   if (isPending) {
-    return <h1>Loading...</h1>;
+    return <Loader />;
   }
 
   if (isError) {
@@ -50,8 +52,8 @@ export default function SongList() {
   }
 
   return (
-    <div>
-      <div className={`song-container ${animationClass}`}>
+    <div className={`song-container`}>
+      <div className={` ${animationClass}`}>
         {currentData?.map((el, i) => (
           <SongCard key={i} song={el} />
         ))}
