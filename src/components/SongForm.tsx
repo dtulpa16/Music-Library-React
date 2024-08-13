@@ -2,20 +2,24 @@ import React, { useContext, useRef, useState } from "react";
 import Form from "../UI/elements/Form";
 import Input from "../UI/elements/Input";
 import { PlaylistContext } from "../store/PlaylistProvider";
-import { Song } from "../util/types";
+import { Song, SongFormProps } from "../util/types";
 import Button from "../UI/elements/Button";
-
-type SongFormProps = {
-  setShowForm: React.Dispatch<React.SetStateAction<boolean>>;
-  modalRef: React.RefObject<{
-    open: () => void;
-    close: () => void;
-  }>;
-};
+import { useMutation } from "@tanstack/react-query";
+import { addSong, queryClient } from "../util/http";
+import { useAuth } from "../util/hooks/useAuth";
 
 export default function SongForm({ setShowForm, modalRef }: SongFormProps) {
   const [isDisabled, setIsDisabled] = useState<boolean>(true);
-  
+  const { user } = useAuth();
+  const mutation = useMutation({
+    mutationFn: addSong,
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["songs", user?.id],
+      });
+    },
+  });
+
   // Need to check if context is undefined before utilizing it
   const context = useContext(PlaylistContext);
 
@@ -23,7 +27,7 @@ export default function SongForm({ setShowForm, modalRef }: SongFormProps) {
     throw new Error("AddNewSongForm must be used within a PlaylistProvider");
   }
 
-  const { dispatch } = context;
+  // const { dispatch } = context;
 
   const formRef = useRef<HTMLFormElement>(null);
 
@@ -51,9 +55,10 @@ export default function SongForm({ setShowForm, modalRef }: SongFormProps) {
     }
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLInputElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLInputElement>) => {
     e.preventDefault();
-    dispatch({ type: "ADD_SONG", payload: songData });
+    mutation.mutate(songData);
+    // dispatch({ type: "ADD_SONG", payload: songData });
     modalRef.current?.open();
     formRef.current?.reset();
   };

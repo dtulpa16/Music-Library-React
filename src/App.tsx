@@ -1,11 +1,12 @@
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import "./App.css";
 import NewSongForm from "./components/NewSongForm";
 import PlaylistProvider from "./store/PlaylistProvider";
 import SongList from "./components/SongList";
+import { QueryClientProvider } from "@tanstack/react-query";
 import Navbar from "./components/Navbar";
+import { queryClient } from "./util/http";
 
-const queryClient = new QueryClient();
+
 
 function App() {
   return (

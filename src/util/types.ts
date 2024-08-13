@@ -9,3 +9,11 @@ export type Song = {
 };
 
 export type User = { id: string | null; username: string | null } | null;
+
+export type SongFormProps = {
+  setShowForm: React.Dispatch<React.SetStateAction<boolean>>;
+  modalRef: React.RefObject<{
+    open: () => void;
+    close: () => void;
+  }>;
+};

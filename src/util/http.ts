@@ -1,6 +1,9 @@
 import axios from "axios";
 import { Song } from "./types";
 
+import { QueryClient } from "@tanstack/react-query";
+export const queryClient = new QueryClient();
+
 export const fetchSongs = async (): Promise<Song[]> => {
   const userId = localStorage.getItem("userId");
 
@@ -17,4 +20,16 @@ export const fetchSongs = async (): Promise<Song[]> => {
   }
   const data = response.data;
   return data;
+};
+
+export const addSong = async (data: Song): Promise<Song | null> => {
+  try {
+    const response = await axios.post<Song>("https://localhost:7010/api/Songs", data);
+    
+    // return the response data
+    return response.data;
+  } catch (error) {
+    console.error("Error adding song:", error);
+    return null;
+  }
 };
