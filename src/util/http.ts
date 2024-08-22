@@ -10,7 +10,7 @@ export const fetchSongs = async (): Promise<Song[]> => {
   const headers = userId ? { "User-Id": userId } : undefined;
 
   const response = await axios.get(
-    `https://music-library-api-buhfd2cvefbxedbg.eastus-01.azurewebsites.net/api/Songs`,
+    `${process.env.BASE_URL}/api/Songs`,
     {
       headers: headers,
     }
@@ -28,7 +28,7 @@ export const fetchSongs = async (): Promise<Song[]> => {
 export const addSong = async (data: Song): Promise<Song | null> => {
   try {
     const response = await axios.post<Song>(
-      `https://music-library-api-buhfd2cvefbxedbg.eastus-01.azurewebsites.net/api/Songs`,
+      `${process.env.BASE_URL}/api/Songs`,
       data
     );
 
